@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <title>Cesium Solar Panel</title>
+</head>
+
+<body>
+    <style>
+        html,
+        body,
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+
+    <div id="cesiumContainer"></div>
+    <script>
+        // Grant CesiumJS access to your ion assets
+        Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxNDFmODI5Zi00ZDNhLTRkMDItYWY4Mi01MWY5MDgwMDE2ZWYiLCJpZCI6ODcyMTYsImlhdCI6MTY0ODQwMzYxOX0.r0ebixHbBDQ8CCW0jx915yrL6J5cvJWyoMLvhYWfDo0";
+
+        const viewer = new Cesium.Viewer("cesiumContainer", {
+            terrainProvider: new Cesium.CesiumTerrainProvider({
+                url: Cesium.IonResource.fromAssetId(1),
+            }),
+        });
+        viewer.scene.globe.depthTestAgainstTerrain = true;
+
+        const tileset = viewer.scene.primitives.add(
+            new Cesium.Cesium3DTileset({
+                url: Cesium.IonResource.fromAssetId(969632),
+            })
+        );
+
+        const url = new Cesium.Cesium3DTileset({
+            url: Cesium.IonResource.fromAssetId(969632),
+        })
+        console.log(Cesium.IonResource.fromAssetId(969632));
+
+        viewer.zoomTo(tileset); 
+    </script>
+</body>
+
+</html>
