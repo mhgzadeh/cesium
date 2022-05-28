@@ -13,21 +13,21 @@ class ModelGenerator {
    }
 
    // 678 & 616
-   target = (solarPanelLocation) => {
-      return Cesium.Cartesian3.fromDegrees(
-         solarPanelLocation.features[616].properties.lon,
-         solarPanelLocation.features[616].properties.lat,
-         this.height + 10
-      );
+   target = (lon, lat) => {
+      return Cesium.Cartesian3.fromDegrees(lon, lat, this.height + 10);
    };
 
-   removeAllEntities = () => {
+   removeEntitiesById = () => {
       this.panelIdArray.forEach(element => {
          console.log(element + 'remove');
          this.viewer.entities.removeById(element);
       });
-      
-   }
+   };
+
+   removeAllEntities = () => {
+      console.log('All elements deleted');
+      this.viewer.entities.removeAll();
+   };
 
    offset = (x, y, z) => {
       return new Cesium.Cartesian3(
@@ -52,7 +52,7 @@ class ModelGenerator {
       for (let i = 0; i < solarPanelLocation.features.length; ++i) {
          const lon = solarPanelLocation.features[i].properties.lon;
          const lat = solarPanelLocation.features[i].properties.lat;
-         let id = 'panel' + i  
+         let id = 'panel' + i
          console.log(id);
          this.createModel(lon, lat, urlPanel, id);
          this.panelIdArray.push(id)

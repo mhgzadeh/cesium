@@ -40,15 +40,30 @@
                 <div class="h-100 " id="cesiumContainer"></div>
             </div>
 
-            <div class="btn-group col-3 mt-3 position-absolute z-1000" role="group"
+            <div class="btn-group btn-panel col-3 mt-3 position-absolute z-1000" role="group"
                 aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="./data/groundPanelM90.glb"
+                <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-1" value="./data/groundPanelM90.glb"
                     autocomplete="off" checked="true">
-                <label class="btn btn-outline-danger" for="btnradio1">Ground Panel</label>
+                <label class="btn btn-outline-danger" for="btn-radio-type-1">Ground Panel</label>
 
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="./data/verticalPanelM90.glb"
+                <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-2" value="./data/verticalPanelM90.glb"
                     autocomplete="off">
-                <label class="btn btn-outline-danger" for="btnradio2">Vertical Panel</label>
+                <label class="btn btn-outline-danger" for="btn-radio-type-2">Vertical Panel</label>
+
+                <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-3" value="./data/agiSolarTrees.glb"
+                    autocomplete="off">
+                <label class="btn btn-outline-danger" for="btn-radio-type-3">Agrivoltaics</label>
+            </div>
+
+            <div class="btn-group btn-position col-2 position-absolute z-1000" role="group"
+                aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btn-radio-position" id="btn-radio-position-1" value="9.370023262377668, 48.81836398378254"
+                    autocomplete="off" checked="true">
+                <label class="btn btn-outline-warning" for="btn-radio-position-1">Beutelstein</label>
+
+                <input type="radio" class="btn-check" name="btn-radio-position" id="btn-radio-position-2" value="9.379149543759475, 48.792965757926986"
+                    autocomplete="off">
+                <label class="btn btn-outline-warning" for="btn-radio-position-2">Burg</label>
             </div>
 
         </div>
