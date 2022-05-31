@@ -9,6 +9,10 @@ class ModelGenerator {
    target = (lon, lat) => {
       return Cesium.Cartesian3.fromDegrees(lon, lat, this.height + 10);
    };
+   
+   offset = (x, y, z) => {
+      return new Cesium.Cartesian3(x, y, z);
+   };
 
    removeEntitiesById = () => {
       this.panelIdArray.forEach(element => {
@@ -20,10 +24,6 @@ class ModelGenerator {
    removeAllEntities = () => {
       console.log('All elements deleted');
       this.viewer.entities.removeAll();
-   };
-
-   offset = (x, y, z) => {
-      return new Cesium.Cartesian3(x, y, z);
    };
 
    createModel = (x, y, url, id) => {
