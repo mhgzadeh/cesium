@@ -1,7 +1,6 @@
 'use strict';
 import ModelGenerator from "./ModelGenerator.js";
 import solarPanels from './solarPanels.js';
-// import agriSolarLocation from "./agriSolar.js"
 
 
 if (typeof Cesium !== 'undefined') {
