@@ -6,7 +6,8 @@
 .cesium-viewer-animationContainer,
 .cesium-credit-textContainer,
 .cesium-viewer-timelineContainer,
-.cesium-credit-expand-link {
+.cesium-credit-expand-link,
+.cesium-viewer-toolbar {
     display: none !important;
 }
 
@@ -25,4 +26,15 @@
 .btn-shadow {
     top: 7rem !important; 
     left: 1rem;
+}
+
+
+.form-check-input:checked {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.div-btns-holder {
+    background-color: rgb(216, 216, 216);
+    border-radius: 10px;
 }

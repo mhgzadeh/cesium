@@ -26,6 +26,9 @@
     <!-- Cesium JS -->
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Cesium.js"></script>
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css">
 
@@ -38,41 +41,99 @@
                 <div class="h-100 " id="cesiumContainer"></div>
             </div>
 
-            <!-- Solar panel buttons -->
-            <div class="btn-group btn-panel col-3 mt-3 position-absolute z-1000" role="group"
-                aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-1" checked="true">
-                <label class="btn btn-outline-danger" for="btn-radio-type-1">Ground Panel</label>
+            <div class="col-3 m-2 p-2 position-absolute z-1000 div-btns-holder">
+                
+                <!-- Solar panel buttons -->
+                <div class="btn-group btn-panel col-12 z-1000 rounded" role="group"
+                    aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-1" checked="true">
+                    <label class="btn btn-outline-danger" for="btn-radio-type-1">Ground Panel</label>
 
-                <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-2">
-                <label class="btn btn-outline-danger" for="btn-radio-type-2">Vertical Panel</label>
+                    <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-2">
+                    <label class="btn btn-outline-danger" for="btn-radio-type-2">Vertical Panel</label>
 
-                <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-3">
-                <label class="btn btn-outline-danger" for="btn-radio-type-3">Agrivoltaics</label>
+                    <input type="radio" class="btn-check" name="btn-radio-type" id="btn-radio-type-3">
+                    <label class="btn btn-outline-danger" for="btn-radio-type-3">Agrivoltaics</label>
+                </div>
+
+                <!-- City buttons -->
+                <div class="btn-group col-12 mt-2" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btn-radio-position" id="btn-radio-position-1" checked="true">
+                    <label class="btn btn-outline-danger" for="btn-radio-position-1">Beutelstein</label>
+                    <input type="radio" class="btn-check" name="btn-radio-position" id="btn-radio-position-2">
+                    <label class="btn btn-outline-danger" for="btn-radio-position-2">Burg</label>
+                </div>
+
+                <div class="form-check btn-shadow col-12 mt-2">
+                    <input class="form-check-input" type="checkbox" value="" id="check-box-shadow">
+                    <label class="form-check-label" for="check-box-shadow">
+                        Shadow Activation
+                    </label>
+                </div>
+
+              
+
+                <!-- Charts & Graphs -->
+                <div class="btn-group col-12 mt-2">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Graphs & Charts
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" data-bs-toggle="modal" href="#exampleModal" role="button">
+                                Monthly Solar Radiation
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" data-bs-toggle="modal" href="#exampleModal2" role="button">
+                                Total Solar Radiation
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- City buttons -->
-            <div class="btn-group btn-position col-2 position-absolute z-1000" role="group"
-                aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btn-radio-position" id="btn-radio-position-1"
-                    checked="true">
-                <label class="btn btn-outline-warning" for="btn-radio-position-1">Beutelstein</label>
+            <div class="modal fade position-absolute" id="exampleModal2" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Monthly Solar Radiation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <canvas id="myChart3"></canvas>
+                        </div>
 
-                <input type="radio" class="btn-check" name="btn-radio-position" id="btn-radio-position-2">
-                <label class="btn btn-outline-warning" for="btn-radio-position-2">Burg</label>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-check position-absolute col-2 btn-shadow z-1000">
-                <input class="form-check-input" type="checkbox" value="" id="check-box-shadow">
-                <label class="form-check-label" for="check-box-shadow">
-                    Shadow Activation
-                </label>
+
+
+            <div class="modal fade position-absolute" id="exampleModal" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Total Solar Radiation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
+
+
     </section>
 
     <!-- Custom JS -->
     <script src="./js/index.js" type="module"></script>
+    <script src="./js/chart_.js" type="module"></script>
 </body>
 
 </html>

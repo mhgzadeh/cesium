@@ -21,9 +21,9 @@ if (typeof Cesium !== 'undefined') {
     viewer.clock.multiplier = 1.0;
 
 
-    const urlPanelGround = "./data/groundSolarGrass1.glb";
-    const urlPanelVertical = "./data/verticalSolarGrass1.glb";
-    const urlPanelAgriSolar = "./data/agiSolarGrass3.glb";
+    const urlPanelGround = "./glbData/groundSolarGrass1.glb";
+    const urlPanelVertical = "./glbData/verticalSolarGrass1.glb";
+    const urlPanelAgriSolar = "./glbData/agiSolarGrass3.glb";
 
     let btnRadioType1 = document.getElementById('btn-radio-type-1');
     let btnRadioType2 = document.getElementById('btn-radio-type-2');
@@ -139,6 +139,10 @@ if (typeof Cesium !== 'undefined') {
             viewer.shadows = false;
         }
     };
+
+    var tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+        url : '././tileset/tileset.json',
+        }));
 
     viewer.scene.camera.setView(targetBeutelstein);
 };
