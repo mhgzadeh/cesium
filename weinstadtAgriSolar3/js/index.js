@@ -1,33 +1,70 @@
 'use strict';
 import ModelGenerator from "./ModelGenerator.js";
-import solarPanels from './solarPanels.js';
+import coorSolarPanel1 from './solarPanelCoor1.js';
+import coorSolarPanel2 from './solarPanelCoor2.js';
 
+
+Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxNDFmODI5Zi00ZDNhLTRkMDItYWY4Mi01MWY5MDgwMDE2ZWYiLCJpZCI6ODcyMTYsImlhdCI6MTY0ODQwMzYxOX0.r0ebixHbBDQ8CCW0jx915yrL6J5cvJWyoMLvhYWfDo0";
 
 if (typeof Cesium !== 'undefined') {
     window.startupCalled = true;
-    const viewer = new Cesium.Viewer("cesiumContainer");
-    
-    const height = 0;
-    let grassForPanel = true
-    
-    const urlGrass = "./data/grass2Line2.glb";
-    const urlPanel = "./data/groundPanelM90.glb";
-    
+    const viewer = new Cesium.Viewer("cesiumContainer", {
+        shadows: false,
+        terrainProvider: new Cesium.CesiumTerrainProvider({
+            url: Cesium.IonResource.fromAssetId(1084935),
+        })
+    });
+
+    var pTime = Cesium.JulianDate.fromIso8601('2016-05-13T09:56:04+02');
+    console.log(pTime);
+    viewer.clock.currentTime = new Cesium.JulianDate(2457507.90000);
+    viewer.clock.multiplier = 1.0;
+
+
+    const urlPanelGround = "./data/groundSolarGrass1.glb";
+    const urlPanelVertical = "./data/verticalSolarGrass1.glb";
+    const urlPanelAgriSolar = "./data/agiSolarGrass3.glb";
+
     let btnRadioType1 = document.getElementById('btn-radio-type-1');
     let btnRadioType2 = document.getElementById('btn-radio-type-2');
     let btnRadioType3 = document.getElementById('btn-radio-type-3');
-    
+
     let btnRadioPosition1 = document.getElementById('btn-radio-position-1');
     let btnRadioPosition2 = document.getElementById('btn-radio-position-2');
-    
-    const modelGenerator = new ModelGenerator(viewer, height);
 
-    const target = modelGenerator.target(9.370023262377668, 48.81836398378254);
-    const offset = modelGenerator.offset(-90, -100, 45);
+    let checkBoxShadow = document.getElementById('check-box-shadow');
+
+    const modelGenerator = new ModelGenerator(viewer);
+
+    const targetBeutelstein = {
+        destination: new Cesium.Cartesian3.fromDegrees(
+            9.371723262377668,
+            48.81706398378254,
+            300
+        ),
+        orientation: new Cesium.HeadingPitchRoll(
+            5.646733805039757,
+            -0.276607153839886,
+            6.281110875400085
+        ),
+    }
+
+    const targetBurg = {
+        destination: new Cesium.Cartesian3.fromDegrees(
+            9.38049543759475,
+            48.791965757926986,
+            420
+        ),
+        orientation: new Cesium.HeadingPitchRoll(
+            5.646733805039757,
+            -0.276607153839886,
+            6.281110875400085
+        ),
+    }
 
 
-    modelGenerator.generateSimpleModel(urlGrass, solarPanels);
-    modelGenerator.generateModelById(urlPanel, solarPanels);
+    modelGenerator.generateSimpleModel(urlPanelGround, coorSolarPanel1, 'position 1');
+    modelGenerator.generateSimpleModel(urlPanelGround, coorSolarPanel2, 'position 2');
 
     btnRadioType2.onclick = function () {
         if (btnRadioType2.getAttribute("checked") == null) {
@@ -37,16 +74,10 @@ if (typeof Cesium !== 'undefined') {
             btnRadioType3.checked = false;
             btnRadioType1.removeAttribute("checked");
             btnRadioType1.checked = false;
-            if (grassForPanel == false) {
-                grassForPanel = true;
-                console.log(grassForPanel);
-                modelGenerator.removeAllEntities();
-                modelGenerator.generateModelById("./data/verticalPanelM90.glb", solarPanels);
-                modelGenerator.generateSimpleModel(urlGrass, solarPanels);
-            } else {
-                modelGenerator.removeEntitiesById();
-                modelGenerator.generateModelById("./data/verticalPanelM90.glb", solarPanels);
-            };
+
+            modelGenerator.removeAllEntities();
+            modelGenerator.generateSimpleModel(urlPanelVertical, coorSolarPanel1, 'position 1');
+            modelGenerator.generateSimpleModel(urlPanelVertical, coorSolarPanel2, 'position 2');
         }
     };
 
@@ -58,16 +89,10 @@ if (typeof Cesium !== 'undefined') {
             btnRadioType3.checked = false;
             btnRadioType2.removeAttribute("checked");
             btnRadioType2.checked = false;
-            if (grassForPanel == false) {
-                grassForPanel = true;
-                console.log(grassForPanel);
-                modelGenerator.removeAllEntities();
-                modelGenerator.generateModelById("./data/groundPanelM90.glb", solarPanels);
-                modelGenerator.generateSimpleModel(urlGrass, solarPanels);
-            } else {
-                modelGenerator.removeEntitiesById();
-                modelGenerator.generateModelById("./data/groundPanelM90.glb", solarPanels);
-            }
+
+            modelGenerator.removeAllEntities();
+            modelGenerator.generateSimpleModel(urlPanelGround, coorSolarPanel1, 'position 1');
+            modelGenerator.generateSimpleModel(urlPanelGround, coorSolarPanel2, 'position 2');
         }
     };
 
@@ -79,11 +104,10 @@ if (typeof Cesium !== 'undefined') {
             btnRadioType2.checked = false;
             btnRadioType1.removeAttribute("checked");
             btnRadioType1.checked = false;
-            if (grassForPanel) {
-                grassForPanel = false
-                modelGenerator.removeAllEntities();
-                modelGenerator.generateSimpleModel("./data/agiSolarGrass3.glb", solarPanels);
-            }
+
+            modelGenerator.removeAllEntities();
+            modelGenerator.generateSimpleModel(urlPanelAgriSolar, coorSolarPanel1, 'position 1');
+            modelGenerator.generateSimpleModel(urlPanelAgriSolar, coorSolarPanel2, 'position 2');
         }
     };
 
@@ -94,8 +118,7 @@ if (typeof Cesium !== 'undefined') {
             btnRadioPosition1.checked = true;
             btnRadioPosition2.removeAttribute("checked");
             btnRadioPosition2.checked = false;
-            const target = modelGenerator.target(9.370023262377668, 48.81836398378254)
-            viewer.scene.camera.lookAt(target, offset);
+            viewer.scene.camera.setView(targetBeutelstein);
         }
     };
 
@@ -105,10 +128,17 @@ if (typeof Cesium !== 'undefined') {
             btnRadioPosition2.checked = true;
             btnRadioPosition1.removeAttribute("checked");
             btnRadioPosition1.checked = false;
-            const target = modelGenerator.target(9.379149543759475, 48.792965757926986)
-            viewer.scene.camera.lookAt(target, offset);
+            viewer.scene.camera.setView(targetBurg);
         }
     };
 
-    viewer.scene.camera.lookAt(target, offset);
-}
+    checkBoxShadow.onclick = function () {
+        if (checkBoxShadow.checked == true) {
+            viewer.shadows = true;
+        } else {
+            viewer.shadows = false;
+        }
+    };
+
+    viewer.scene.camera.setView(targetBeutelstein);
+};

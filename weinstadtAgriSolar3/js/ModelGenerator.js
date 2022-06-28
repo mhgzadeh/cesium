@@ -1,8 +1,8 @@
 class ModelGenerator {
 
-   constructor(viewer, height) {
+   constructor(viewer) {
       this.viewer = viewer;
-      this.height = height;
+      this.height = 400;
       this.panelIdArray = [];
    };
 
@@ -16,7 +16,6 @@ class ModelGenerator {
 
    removeEntitiesById = () => {
       this.panelIdArray.forEach(element => {
-         console.log(element + 'remove');
          this.viewer.entities.removeById(element);
       });
    };
@@ -26,8 +25,8 @@ class ModelGenerator {
       this.viewer.entities.removeAll();
    };
 
-   createModel = (x, y, url, id) => {
-      const position = Cesium.Cartesian3.fromDegrees(x, y, this.height);
+   createModel = (lon, lat, alt, url, id) => {
+      const position = Cesium.Cartesian3.fromDegrees(lon, lat, alt);
       this.viewer.entities.add({
          name: url,
          position: position,
@@ -36,22 +35,26 @@ class ModelGenerator {
       });
    };
 
-   generateModelById = (urlPanel, solarPanelLocation) => {
+   generateModelById = (objectUrl, objectLocation) => {
       this.panelIdArray = []
-      for (let i = 0; i < solarPanelLocation.features.length; ++i) {
-         const lon = solarPanelLocation.features[i].properties.lon;
-         const lat = solarPanelLocation.features[i].properties.lat;
+      for (let i = 0; i < objectLocation.features.length; ++i) {
+         const lon = objectLocation.features[i].properties.lon;
+         const lat = objectLocation.features[i].properties.lat;
+         const alt = objectLocation.features[i].properties.alt1;
+         console.log(lon, lat, alt);
          let id = 'panel' + i;
-         this.createModel(lon, lat, urlPanel, id);
+         this.createModel(lon, lat, alt, objectUrl, id);
          this.panelIdArray.push(id)
       };
    };
 
-   generateSimpleModel = (urlGrass, grassLocation) => {
-      for (let i = 0; i < grassLocation.features.length; ++i) {
-         const lon = grassLocation.features[i].properties.lon;
-         const lat = grassLocation.features[i].properties.lat;
-         this.createModel(lon, lat, urlGrass);
+   generateSimpleModel = (objectUrl, objectLocation, panelName) => {
+      console.log(panelName);
+      for (let i = 0; i < objectLocation.features.length; ++i) {
+         const lon = objectLocation.features[i].properties.lon;
+         const lat = objectLocation.features[i].properties.lat;
+         const alt = objectLocation.features[i].properties.alt1;
+         this.createModel(lon, lat, alt, objectUrl);
       };
    };
 

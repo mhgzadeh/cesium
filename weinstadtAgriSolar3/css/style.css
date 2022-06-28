@@ -21,3 +21,8 @@
 .btn-position {
     top: 4rem !important; 
 }
+
+.btn-shadow {
+    top: 7rem !important; 
+    left: 1rem;
+}
